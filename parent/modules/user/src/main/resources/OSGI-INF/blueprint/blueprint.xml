@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.osgi.org/xmlns/blueprint/v1.0.0 https://www.osgi.org/xmlns/blueprint/v1.0.0">
+
+	<service interface="fr.sekaijin.osgi.web.main.api.IModule">
+		<bean class="fr.sekaijin.osgi.web.module.user.UserModule">
+			<argument type="java.lang.String" value="${module.name}" />
+		</bean>
+	</service>
+
+	<service interface="javax.servlet.Servlet">
+		<service-properties>
+			<entry key="alias" value="/${web.context}/${module.name}/add" />
+		</service-properties>
+		<bean class="fr.sekaijin.osgi.web.module.user.servlet.Add" />
+	</service>
+
+	<service interface="javax.servlet.Servlet">
+		<service-properties>
+			<entry key="alias" value="/${web.context}/${module.name}/manage" />
+		</service-properties>
+		<bean class="fr.sekaijin.osgi.web.module.user.servlet.Manage" />
+	</service>
+
+	<service interface="org.ops4j.pax.web.extender.whiteboard.ResourceMapping">
+		<bean
+			class="org.ops4j.pax.web.extender.whiteboard.runtime.DefaultResourceMapping">
+			<property name="alias" value="/${web.context}/${module.name}/static" /> <!-- http path -->
+			<property name="path" value="/local" /> <!--Local Folder within jar -->
+		</bean>
+	</service>
+</blueprint>

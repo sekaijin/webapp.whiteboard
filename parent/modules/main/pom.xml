@@ -1,0 +1,70 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>fr.sekaijin.osgi.web</groupId>
+		<artifactId>modules</artifactId>
+		<version>0.0.1</version>
+	</parent>
+
+	<artifactId>main</artifactId>
+	<name>Sekaijin :: Web :: Module :: Main</name>
+	<description>Sekaijin - Web - Main</description>
+	<packaging>bundle</packaging>
+	<properties>
+		<module.name>main</module.name>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>fr.sekaijin.osgi.web</groupId>
+			<artifactId>main-api</artifactId>
+			<version>0.0.1</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>fr.sekaijin.osgi.web</groupId>
+			<artifactId>module-whiteboard</artifactId>
+			<version>0.0.1</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.osgi</groupId>
+			<artifactId>org.osgi.core</artifactId>
+			<version>4.2.0</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.osgi</groupId>
+			<artifactId>org.osgi.compendium</artifactId>
+			<version>4.2.0</version>
+			<scope>compile</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<version>3.2.0</version>
+				<extensions>true</extensions>
+				<configuration>
+					<instructions>
+						<Bundle-SymbolicName>${web.context}-${module.name}</Bundle-SymbolicName>
+						<Bundle-Name>${project.name}</Bundle-Name>
+						<Web-ContextPath>${web.context}</Web-ContextPath>
+						<Webapp-Context>${web.context}</Webapp-Context>
+					</instructions>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

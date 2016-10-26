@@ -1,0 +1,33 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>fr.sekaijin.osgi.web</groupId>
+		<artifactId>parent</artifactId>
+		<version>0.0.1</version>
+	</parent>
+	<artifactId>modules</artifactId>
+	<packaging>pom</packaging>
+	<name>Sekaijin :: Web :: Modules</name>
+	<description>Sekaijin - Web - Modules</description>
+	<modules>
+		<module>main</module>
+		<module>user</module>
+		<module>message</module>
+	</modules>
+
+	<dependencies>
+		<dependency>
+			<groupId>fr.sekaijin.osgi.web</groupId>
+			<artifactId>main-api</artifactId>
+			<version>0.0.1</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>2.5</version>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
+</project>

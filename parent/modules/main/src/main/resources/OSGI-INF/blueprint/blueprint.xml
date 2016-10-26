@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.osgi.org/xmlns/blueprint/v1.0.0 https://www.osgi.org/xmlns/blueprint/v1.0.0">
+
+	<bean class="fr.sekaijin.osgi.web.module.tracker.ModuleTracker"
+		init-method="start" destroy-method="close">
+		<argument type="org.osgi.framework.BundleContext" ref="blueprintBundleContext" />
+		<argument type="java.lang.String" value="fr.sekaijin.osgi.web.main.api.IModule" />
+		<argument type="org.osgi.util.tracker.ServiceTrackerCustomizer">
+			<bean class="fr.sekaijin.osgi.web.main.tracker.ModuleTrackerCustomizer">
+				<argument type="org.osgi.framework.BundleContext" ref="blueprintBundleContext" />
+			</bean>
+		</argument>
+	</bean>
+
+	<service id="welcomeFileService"
+		interface="org.ops4j.pax.web.extender.whiteboard.WelcomeFileMapping">
+		<bean
+			class="org.ops4j.pax.web.extender.whiteboard.runtime.DefaultWelcomeFileMapping">
+			<property name="redirect" value="false" />
+			<property name="welcomeFiles">
+				<array>
+					<value>index.jsp</value>
+					<value>index.html</value>
+				</array>
+			</property>
+		</bean>
+	</service>
+
+	<service interface="org.ops4j.pax.web.extender.whiteboard.ResourceMapping">
+		<bean
+			class="org.ops4j.pax.web.extender.whiteboard.runtime.DefaultResourceMapping">
+			<property name="alias" value="/${web.context}/${module.name}/static" /> <!-- http path -->
+			<property name="path" value="/local" /> <!--Local Folder within jar -->
+		</bean>
+	</service>
+
+</blueprint>
