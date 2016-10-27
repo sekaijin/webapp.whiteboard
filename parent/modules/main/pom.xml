@@ -60,7 +60,7 @@
 					<instructions>
 						<Bundle-SymbolicName>${web.context}-${module.name}</Bundle-SymbolicName>
 						<Bundle-Name>${project.name}</Bundle-Name>
-						<Web-ContextPath>${web.context}</Web-ContextPath>
+<!-- 						<Web-ContextPath>${web.context}</Web-ContextPath> -->
 						<Webapp-Context>${web.context}</Webapp-Context>
 					</instructions>
 				</configuration>

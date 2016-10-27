@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.osgi.org/xmlns/blueprint/v1.0.0 https://www.osgi.org/xmlns/blueprint/v1.0.0">
+	xsi:schemaLocation="http://www.osgi.org/xmlns/blueprint/v1.0.0 https://osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd">
 
 	<service interface="fr.sekaijin.osgi.web.main.api.IModule">
 		<bean class="fr.sekaijin.osgi.web.module.message.MessageModule">
@@ -9,30 +9,42 @@
 		</bean>
 	</service>
 
+	<service interface="org.ops4j.pax.web.extender.whiteboard.HttpContextMapping">
+		<bean
+			class="org.ops4j.pax.web.extender.whiteboard.runtime.DefaultHttpContextMapping">
+			<property name="httpContextId" value="httpContext" />
+			<property name="path" value="${web.context}" />
+		</bean>
+	</service>
+
 	<service interface="javax.servlet.Servlet">
 		<service-properties>
-			<entry key="alias" value="/${web.context}/${module.name}/create" />
+			<entry key="alias" value="/${module.name}/create" />
+			<entry key="httpContext.id" value="httpContext" />
 		</service-properties>
 		<bean class="fr.sekaijin.osgi.web.module.message.servlet.Create" />
 	</service>
 
 	<service interface="javax.servlet.Servlet">
 		<service-properties>
-			<entry key="alias" value="/${web.context}/${module.name}/inbox" />
+			<entry key="alias" value="/${module.name}/inbox" />
+			<entry key="httpContext.id" value="httpContext" />
 		</service-properties>
 		<bean class="fr.sekaijin.osgi.web.module.message.servlet.Inbox" />
 	</service>
 
 	<service interface="javax.servlet.Servlet">
 		<service-properties>
-			<entry key="alias" value="/${web.context}/${module.name}/outbox" />
+			<entry key="alias" value="/${module.name}/outbox" />
+			<entry key="httpContext.id" value="httpContext" />
 		</service-properties>
 		<bean class="fr.sekaijin.osgi.web.module.message.servlet.Outbox" />
 	</service>
 
 	<service interface="javax.servlet.Servlet">
 		<service-properties>
-			<entry key="alias" value="/${web.context}/${module.name}/sent" />
+			<entry key="alias" value="/${module.name}/sent" />
+			<entry key="httpContext.id" value="httpContext" />
 		</service-properties>
 		<bean class="fr.sekaijin.osgi.web.module.message.servlet.Sent" />
 	</service>
@@ -40,7 +52,8 @@
 	<service interface="org.ops4j.pax.web.extender.whiteboard.ResourceMapping">
 		<bean
 			class="org.ops4j.pax.web.extender.whiteboard.runtime.DefaultResourceMapping">
-			<property name="alias" value="/${web.context}/${module.name}/static" /> <!-- http path -->
+			<property name="httpContextId" value="httpContext" />
+			<property name="alias" value="/${module.name}/static" /> <!-- http path -->
 			<property name="path" value="/local" /> <!--Local Folder within jar -->
 		</bean>
 	</service>

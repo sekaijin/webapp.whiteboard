@@ -7,7 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Main Menu</title>
 </head>
-<body>
+<body><%=request.getContextPath()%> 
 	<ul>
 		<%
 			for (String module : MenuItemRegistrar.getMenuItems().keySet()) {

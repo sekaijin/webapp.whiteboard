@@ -8,21 +8,21 @@ import org.slf4j.LoggerFactory;
 
 public class ModuleTracker extends Thread {
 	private ServiceTracker tracker;
-	private ServiceTrackerCustomizer ModuleTrackerCustomizer;
+	private Class<? extends ServiceTrackerCustomizer> moduleTrackerCustomizer;
 	private String className;
 	private Logger log;
 	private BundleContext context;
 
-	public ModuleTracker(BundleContext context, String className, ServiceTrackerCustomizer ModuleTrackerCustomizer) {
-		this.ModuleTrackerCustomizer = ModuleTrackerCustomizer;
-		this.className = className;
+	public ModuleTracker(BundleContext context, Class<?> service, Class<? extends ServiceTrackerCustomizer> trackerCustomizer) {
 		this.log = LoggerFactory.getLogger(getClass());
+		this.className = service.getName();
 		this.context = context;
+		this.moduleTrackerCustomizer = trackerCustomizer;
 	}
 
 	public void run() {
 		try {
-			this.tracker = new ServiceTracker(context, className, ModuleTrackerCustomizer);
+			this.tracker = new ServiceTracker(context, className, moduleTrackerCustomizer.newInstance());
 			this.tracker.open();
 		} catch (Throwable e) {
 			log.error(e.getMessage(), e);
