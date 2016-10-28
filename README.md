@@ -24,56 +24,47 @@ Le projet va donc se découper en plusieurs sous-projets.
 
 Pour qu'un module soit fonctionnel, il faut qu'il ajoute dans le contexte de l'application ses propres ressources, servlets etc.
 Tout cela se fait via blueprint.
+Un très bon exemple se trouve ici https://github.com/ops4j/org.ops4j.pax.web/blob/master/samples/whiteboard-blueprint/src/main/resources/OSGI-INF/blueprint/blueprint.xml
+Pour simplifier les dev le bundle module-whiteboard offre une définition gloable du module.
 
-    <service interface="org.ops4j.pax.web.extender.whiteboard.HttpContextMapping">
-        <bean
-            class="org.ops4j.pax.web.extender.whiteboard.runtime.DefaultHttpContextMapping">
-            <property name="httpContextId" value="httpContext" />
-            <property name="path" value="${web.context}" />
+    <service interface="fr.sekaijin.osgi.web.module.IModule">
+        <bean class="fr.sekaijin.osgi.web.module.Module">
+            <property name="contextId" value="httpContext" />
+            <property name="moduleName" value="${module.name}" />
+            <property name="contextPath" value="${web.context}" />
+            <property name="servlets">
+                <map>
+                    <entry key="add">
+                        <bean class="fr.sekaijin.osgi.web.module.user.servlet.Add" />
+                    </entry>
+                    <entry key="manage">
+                        <bean class="fr.sekaijin.osgi.web.module.user.servlet.Manage" />
+                    </entry>
+                </map>
+            </property>
         </bean>
     </service>
+Il va invoquer les services pax whiteboard en ajoutant tout le nécessaire.
+Enfin l'essentiel du projet. Le module implémente l'interface définie dans main-api.
+La encore la définition se fait dans blueprint.
 
-    <service interface="javax.servlet.Servlet">
-        <service-properties>
-            <entry key="alias" value="/${module.name}/add" />
-            <entry key="httpContext.id" value="httpContext" />
-        </service-properties>
-        <bean class="fr.sekaijin.osgi.web.module.user.servlet.Add" />
-    </service>
-
-Un très bon exemple se trouve ici https://github.com/ops4j/org.ops4j.pax.web/blob/master/samples/whiteboard-blueprint/src/main/resources/OSGI-INF/blueprint/blueprint.xml
-Il convient de faire attention à un détail dans celui-ci. il utilise le web-contextPath /
-Pour utiliser un autre contexte, il est nécessaire de rajouter `<entry key="httpContext.id" value="httpContext" />` comme ci-dessus.
-
-Enfin l'essentiel du projet. Le module implémente l'interface débine dans main-api.
-
-    public class UserModule implements IModule {
-
-        protected String moduleName;
-
-        public UserModule(String moduleName) {
-            super();
-            this.moduleName = moduleName;
-        }
-
-        public String getModuleName() {
-            return moduleName;
-        }
-
-        public List<MenuItem> getMenuItems() {
-            List<MenuItem> menuItemList = new ArrayList<>();
-
-            menuItemList.add(new MenuItem(moduleName, "user_add.png", "add", "add"));
-            menuItemList.add(new MenuItem(moduleName, "users.jpeg", "manage", "manage"));
-            return menuItemList;
-        }
-    }
-
-Dans blueprint cette classe est exposé comme service
-
-    <service interface="fr.sekaijin.osgi.web.main.api.IModule">
-        <bean class="fr.sekaijin.osgi.web.module.user.UserModule">
-            <argument type="java.lang.String" value="${module.name}" />
+    <service interface="fr.sekaijin.osgi.web.main.api.IMenu">
+        <bean class="fr.sekaijin.osgi.web.main.api.Menu">
+            <property name="moduleName" value="${module.name}" />
+             <property name="menuItems">
+                <list>
+                    <bean class="fr.sekaijin.osgi.web.main.api.MenuItem">
+                        <property name="icon" value="user_add.png" />
+                        <property name="label" value="add" />
+                        <property name="path" value="add" />
+                    </bean>
+                    <bean class="fr.sekaijin.osgi.web.main.api.MenuItem">
+                        <property name="icon" value="users.jpeg" />
+                        <property name="label" value="manage" />
+                        <property name="path" value="manage" />
+                    </bean>
+                </list>
+             </property>
         </bean>
     </service>
 
