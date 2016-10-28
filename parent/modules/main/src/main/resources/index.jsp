@@ -13,7 +13,7 @@
 			for (String module : MenuItemRegistrar.getMenuItems().keySet()) {
 				for (MenuItem menuItem : MenuItemRegistrar.getMenuItems().get(module)) {
 		%><li><img src="<%=module%>/static/<%=menuItem.getIcon()%>" />
-			<a href="<%=module%>/<%=menuItem.getPath()%>"><%=menuItem.getModuleName()%>=><%=menuItem.getKey()%></a></li>
+			<a href="<%=module%>/<%=menuItem.getPath()%>"><%=module%>=><%=menuItem.getLabel()%></a></li>
 		<%
 				}
 			}%>

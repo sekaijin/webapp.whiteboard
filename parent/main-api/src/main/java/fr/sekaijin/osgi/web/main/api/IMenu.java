@@ -2,7 +2,7 @@ package fr.sekaijin.osgi.web.main.api;
 
 import java.util.List;
 
-public interface IModule {
+public interface IMenu {
 	
 	public String getModuleName();
 
