@@ -13,6 +13,7 @@
 				datatype : "json",
 				on:{
 				    onMenuItemClick:function(id, e, n){
+				    	if (this.getMenuItem(id).href)
 				        webix.ajax(this.getMenuItem(id).href, function(text){
 				            webix.message(text); //show server side response
 				        });
