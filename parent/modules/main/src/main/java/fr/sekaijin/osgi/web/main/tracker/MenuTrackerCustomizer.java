@@ -28,7 +28,7 @@ implements ServiceTrackerCustomizer
 	public Object addingService(ServiceReference reference) {
 		IMenu service = IMenu.class.cast(reference.getBundle().getBundleContext().getService(reference));
 		log.info("ADDING MENU    : " + service.getModuleName());
-		MenuItemRegistrar.addMenuItem(service.getModuleName(), service.getMenuItems());
+		MenuItemRegistrar.addMenu(service.getModuleName(), service);
 		return service;
 	}
 
@@ -36,7 +36,7 @@ implements ServiceTrackerCustomizer
 	public void removedService(ServiceReference reference, Object ser) {
 		IMenu service = IMenu.class.cast(reference.getBundle().getBundleContext().getService(reference));
 		log.info("REMOVING MENU  : " + service.getModuleName());
-		MenuItemRegistrar.removeMenuItem(service.getModuleName());
+		MenuItemRegistrar.removeMenu(service.getModuleName());
 	}
 
 }

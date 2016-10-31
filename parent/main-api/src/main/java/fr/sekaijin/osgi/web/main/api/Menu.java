@@ -5,6 +5,7 @@ import java.util.List;
 public class Menu implements IMenu {
 
 	private String moduleName;
+	private String moduleIcon;
 	private List<MenuItem> menuItems;
 
 	public Menu() {
@@ -17,6 +18,14 @@ public class Menu implements IMenu {
 
 	public void setModuleName(String moduleName) {
 		this.moduleName = moduleName;
+	}
+
+	public String getModuleIcon() {
+		return moduleIcon;
+	}
+
+	public void setModuleIcon(String moduleIcon) {
+		this.moduleIcon = moduleIcon;
 	}
 
 	public List<MenuItem> getMenuItems() {

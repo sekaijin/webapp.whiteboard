@@ -25,7 +25,7 @@
 			</property>
 			<property name="jspPatterns">
 				<array>
-					<value>index.jsp</value>
+					<value>*.jsp</value>
 				</array>
 			</property>
 			<property name="errors">
@@ -37,6 +37,13 @@
 			<property name="resources">
 				<map>
 					<entry key="/" value="/" />
+				</map>
+			</property>
+			<property name="servlets">
+				<map>
+					<entry key="menu">
+						<bean class="fr.sekaijin.osgi.web.module.main.servlet.Menu" />
+					</entry>
 				</map>
 			</property>
 		</bean>

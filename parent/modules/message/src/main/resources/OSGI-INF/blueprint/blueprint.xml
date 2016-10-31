@@ -6,30 +6,26 @@
     <service interface="fr.sekaijin.osgi.web.main.api.IMenu">
         <bean class="fr.sekaijin.osgi.web.main.api.Menu">
             <property name="moduleName" value="${module.name}" />
+            <property name="moduleIcon" value="envelope" />
              <property name="menuItems">
                 <list>
                     <bean class="fr.sekaijin.osgi.web.main.api.MenuItem">
-                        <property name="icon" value="add.png" />
+                        <property name="icon" value="plus-square" />
                         <property name="label" value="create" />
                         <property name="path" value="create" />
                     </bean>
                     <bean class="fr.sekaijin.osgi.web.main.api.MenuItem">
-                        <property name="icon" value="inbox.png" />
+                        <property name="icon" value="sign-in" />
                         <property name="label" value="inbox" />
                         <property name="path" value="inbox" />
                     </bean>
                     <bean class="fr.sekaijin.osgi.web.main.api.MenuItem">
-                        <property name="icon" value="inbox.png" />
-                        <property name="label" value="inbox" />
-                        <property name="path" value="inbox" />
-                    </bean>
-                    <bean class="fr.sekaijin.osgi.web.main.api.MenuItem">
-                        <property name="icon" value="outbox.png" />
+                        <property name="icon" value="sign-out" />
                         <property name="label" value="outbox" />
                         <property name="path" value="outbox" />
                     </bean>
                     <bean class="fr.sekaijin.osgi.web.main.api.MenuItem">
-                        <property name="icon" value="sent.png" />
+                        <property name="icon" value="paper-plane" />
                         <property name="label" value="sent" />
                         <property name="path" value="sent" />
                     </bean>

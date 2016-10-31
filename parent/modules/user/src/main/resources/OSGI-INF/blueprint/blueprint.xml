@@ -6,15 +6,16 @@
     <service interface="fr.sekaijin.osgi.web.main.api.IMenu">
         <bean class="fr.sekaijin.osgi.web.main.api.Menu">
             <property name="moduleName" value="${module.name}" />
+            <property name="moduleIcon" value="users" />
              <property name="menuItems">
                 <list>
                     <bean class="fr.sekaijin.osgi.web.main.api.MenuItem">
-                        <property name="icon" value="user_add.png" />
+                        <property name="icon" value="user-plus" />
                         <property name="label" value="add" />
                         <property name="path" value="add" />
                     </bean>
                     <bean class="fr.sekaijin.osgi.web.main.api.MenuItem">
-                        <property name="icon" value="users.jpeg" />
+                        <property name="icon" value="user" />
                         <property name="label" value="manage" />
                         <property name="path" value="manage" />
                     </bean>

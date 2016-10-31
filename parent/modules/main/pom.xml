@@ -41,6 +41,11 @@
 			<version>4.2.0</version>
 			<scope>compile</scope>
 		</dependency>
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>1.2.20</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -60,7 +65,7 @@
 					<instructions>
 						<Bundle-SymbolicName>${web.context}-${module.name}</Bundle-SymbolicName>
 						<Bundle-Name>${project.name}</Bundle-Name>
-<!-- 						<Web-ContextPath>${web.context}</Web-ContextPath> -->
+						<!-- <Web-ContextPath>${web.context}</Web-ContextPath> -->
 						<Webapp-Context>${web.context}</Webapp-Context>
 					</instructions>
 				</configuration>
