@@ -29,6 +29,9 @@ implements ServiceTrackerCustomizer
 		IMenu service = IMenu.class.cast(reference.getBundle().getBundleContext().getService(reference));
 		log.info("ADDING MENU    : " + service.getModuleName());
 		MenuItemRegistrar.addMenu(service.getModuleName(), service);
+		if(null != MenuItemRegistrar.getSocket()) {
+			MenuItemRegistrar.getSocket().notifySubscriber();
+		}
 		return service;
 	}
 
@@ -37,6 +40,9 @@ implements ServiceTrackerCustomizer
 		IMenu service = IMenu.class.cast(reference.getBundle().getBundleContext().getService(reference));
 		log.info("REMOVING MENU  : " + service.getModuleName());
 		MenuItemRegistrar.removeMenu(service.getModuleName());
+		if(null != MenuItemRegistrar.getSocket()) {
+			MenuItemRegistrar.getSocket().notifySubscriber();
+		}
 	}
 
 }
