@@ -7,20 +7,32 @@ import org.eclipse.jetty.websocket.WebSocket;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.alibaba.fastjson.JSONObject;
+
 public class EventSocket implements WebSocket.OnTextMessage {
 	private Connection connection;
 	private Set<EventSocket> members;
 	private Logger log;
+	private static String CONNECTED;
+	private static String DISCONNECTED;
+	static {
+		JSONObject json = new JSONObject();
+		json.put("message", "Connected");
+		CONNECTED = json.toJSONString();
+		json.put("message", "disconnected");
+		DISCONNECTED = json.toJSONString();
+	}
 
 	public EventSocket(Set<EventSocket> members) {
 		this.members = members;
 		log = LoggerFactory.getLogger(getClass());
+
 	}
 
 	@Override
 	public void onClose(int closeCode, String message) {
 		try {
-			this.connection.sendMessage("disconnected");
+			this.connection.sendMessage(DISCONNECTED);
 		} catch (IOException e) {
 			log.warn(e.getMessage());;
 		}
@@ -45,7 +57,7 @@ public class EventSocket implements WebSocket.OnTextMessage {
 		members.add(this);
 		this.connection = cnx;
 		try {
-			this.connection.sendMessage("Connected");
+			this.connection.sendMessage(CONNECTED);
 		} catch (IOException e) {
 			log.warn(e.getMessage());;
 		}

@@ -13,6 +13,8 @@ import org.eclipse.jetty.websocket.WebSocketServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.alibaba.fastjson.JSONObject;
+
 import fr.sekaijin.osgi.web.main.registrar.MenuItemRegistrar;
 
 public class EventServlet extends WebSocketServlet {
@@ -37,7 +39,9 @@ public class EventServlet extends WebSocketServlet {
 			if (member.isOpen()) {
 				log.info("Sending!");
 				try {
-					member.sendMessage("menuUpdate");
+					JSONObject json = new JSONObject();
+					json.put("action", "menuUpdate");
+					member.sendMessage(json.toJSONString());
 				} catch (IOException e) {
 					e.printStackTrace();
 				}

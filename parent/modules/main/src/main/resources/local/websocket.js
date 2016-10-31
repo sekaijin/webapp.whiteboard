@@ -7,21 +7,24 @@
 			connect : function() {
 				var location = 'ws://' + window.location.host
 						+ '/${web.context}/main/webSocket';
-				console.log(location);
+				webix.message(location);
 				this.ws = new WebSocket(location);
 				this.ws.onopen = function() {
 					this.send('websockets are open for communications!');
 				};
 				this.ws.onmessage = function(m) {
 					if (m.data) {
-						console.log(m.data);
-						$$('main_menu').clearAll();
-						$$('main_menu').load('main/menu');
+						webix.message(m.data);
+						var json = JSON.parse(m.data);
+						if ('menuUpdate'==json.action){
+							$$('main_menu').clearAll();
+							$$('main_menu').load('main/menu')
+						};
 
 					}
 				};
 				this.ws.onclose = function(m) {
-					console.log('ws closed');
+					webix.message('ws closed');
 					server.ws=null;
 				};
 			},

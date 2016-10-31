@@ -44,6 +44,9 @@
 					<entry key="menu">
 						<bean class="fr.sekaijin.osgi.web.module.main.servlet.Menu" />
 					</entry>
+                    <entry key="webSocket">
+                        <bean class="fr.sekaijin.osgi.web.module.main.servlet.EventServlet" />
+                    </entry>
 				</map>
 			</property>
 		</bean>
