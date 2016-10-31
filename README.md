@@ -77,5 +77,5 @@ L'application dans le module main démarre un tableau blanc pour capter l'exposi
     </bean>
 
 À chaque module qui déclare un menu le Tracker place cette définition dans un registre.
-Une webScocket notifie le client que le contenu du registre à changé pour qui recharche la définition.
+Une webScocket notifie le client que le contenu du registre à changé pour qui recharge la définition.
     
