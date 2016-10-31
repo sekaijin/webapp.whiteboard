@@ -10,7 +10,7 @@ Le fonctionnement retenu pour ce prototype est des plus simple.
 L'application expose une JSP qui affiche un menu.
 Par défaut celui-ci est vide.
 
-Lorsqu'un module est détecté, les éléments de menu qu'il définit sont ajoutés par la JSP.
+Lorsqu'un module est détecté, les éléments de menu qu'il définit sont ajoutés.
 Bien sûr cet exemple basique a vocation à être généralisé.
 
 Plus que la définition d'un menu c'est la mécanique d’échange entre l'application et les modules qui est recherché.
@@ -77,5 +77,5 @@ L'application dans le module main démarre un tableau blanc pour capter l'exposi
     </bean>
 
 À chaque module qui déclare un menu le Tracker place cette définition dans un registre.
-Et la JSP s'en sert pour l'afficher.
+Une webScocket notifie le client que le contenu du registre à changé pour qui recharche la définition.
     
